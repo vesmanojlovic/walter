@@ -1,0 +1,50 @@
+### WORKFLOW PARAMETERS ###
+# Path to the cloned repository
+# (absolute path is required, do not use "~" -
+# some HPC clusters evaluate it differently on login & compute nodes
+workflow_repo_path: ""
+
+# Path to the output directory
+workflow_analysis_outdir: ""
+
+### METHDEMON PARAMETERS ###
+
+# capacity
+methdemon_log2_deme_carrying_capacity:
+# dispersal
+methdemon_init_migration_rate:
+methdemon_migration_rate_scales_with_K:
+# mutation
+methdemon_mu_driver_birth:
+methdemon_mu_driver_migration:
+# fitness
+methdemon_normal_birth_rate:
+methdemon_baseline_death_rate:
+methdemon_s_driver_birth:
+methdemon_s_driver_migration:
+methdemon_max_relative_birth_rate:
+methdemon_max_relative_migration_rate:
+# methylation
+methdemon_meth_rate:
+methdemon_demeth_rate:
+methdemon_fCpG_loci_per_cell:
+methdemon_manual_array:
+# fission_times
+methdemon_t0:
+methdemon_tL1:
+methdemon_tL2:
+methdemon_tL3:
+methdemon_tR1:
+methdemon_tR2:
+methdemon_tR3:
+# stopping_conditions
+methdemon_max_time:
+methdemon_max_generations:
+methdemon_max_fissions:
+# initial_conditions
+methdemon_init_pop:
+# output_indicators
+methdemon_write_clones_file:
+methdemon_write_demes_file:
+# seed
+methdemon_seed:
