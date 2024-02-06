@@ -1,0 +1,12 @@
+{
+
+  "run_methdemon":
+  {
+    "time": "48:00:00",
+    "cpus-per-task":"1",
+    "mem":"10G",
+    "job-name": "{rule}.{wildcards.runID}",
+    "output": "{params.LOG_cluster_log}.%j.%N.out"
+  }
+
+}
