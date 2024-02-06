@@ -1,0 +1,211 @@
+import glob
+iport itertools
+from math import prod
+import os
+import traceback
+from jinja2 import Template
+
+
+config_template = os.join(
+        config["workflow_repo_path"],
+        "resources",
+        "template-config.dat"
+)
+
+
+def CreateConfigFilesCrossProduct():
+    """
+    Render methdemon config template with the parameters from YAML;
+    implement Cartesian product of all possible parameters' options.
+
+    Args:
+        objects for this workflow; required for snakemake
+    """
+
+    meth_params = [
+                    k for k in list(config.keys())
+                    if k.startswith("methdenmon_")
+        ]
+    var_param = [k for k in meth_params if type(config[k]) is list]
+    list_lists = [config[key] for key in var_param]
+    cart_prod = [_ for _ in itertools.product(*list_lists)]
+    N = prod([len(config[k]) for k in var_param])
+    hexnames = [hex(_).split("x")[-1].upper().rjust(8, "0") for _ in range(N)]
+
+    configfiles = {}
+
+    for dirname, c_prod in zip(hexnames, cart_prod):
+        config_copy = dict(config)
+        for _ in range(len(var_param)):
+            config_copy[var_param[_]] = c_prod[_]
+
+        with open(config_template) as f: template = Template(f.read())
+        configfiles[dirname] = template.render(config_copy)
+
+    return configfiles
+
+ENCODED_CONFIG_FILES = CreateConfigFilesCrossProduct()
+
+###############################################################################
+
+# always-local rules
+localrules: all, prepare_configfiles
+
+# before the workflow starts: create the main outdir
+onstart:
+    os.makedirs(
+        config["workflow_analysis_outdir"],
+        exist_ok=True
+    )
+
+rule prepare_configfiles:
+    """
+    Prepare separate simulation config files based on the main workflow config.
+    """
+    output:
+        DAT_configfile = os.path.join(
+            "{outdir}",
+            "configfiles",
+            "{runID}.dat"
+        )
+
+    params:
+        STR_runID = "{runID}",
+        DIR_configfile_dirpath = os.path.join(
+            "{outdir}",
+            "configfiles"
+        )
+
+    threads: 1
+
+    log:
+        LOG_local_stdout = os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "prepare_configfiles.stdout.log"
+        )
+        LOG_local_stderr = os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "prepare_configfiles.stderr.log"
+        )
+
+    benchmark:
+        os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "prepare_configfiles.benchmark.log"
+        )
+
+    run:
+        with open(log.LOG_local_stderr, "w") as errlogfile:
+            try:
+                os.makedirs(
+                    params.DIR_configfile_dirpath,
+                    exist_ok=True
+                )
+                with open(output.DAT_configfile, "w") as f:
+                    f.write(ENCODED_CONFIG_FILES[params.STR_runID])
+            except Exception:
+                traceback.print_exc(file = errlogfile)
+                raise Exception(
+                    "Workflow error at rule: prepare_configfiles"
+                )
+
+
+rule run_methdemon:
+    """
+    Run methdemon simulations in parallel for every config separately.
+    """
+    input:
+        BIN_methdemon = os.path.join(
+            config["workflow_repo_path"],
+            "resources",
+            "methdemon",
+            "bin",
+            "methdemon"
+        ),
+        DAT_configfile = os.path.join(
+            "{outdir}",
+            "configfiles",
+            "{runID}.dat"
+        )
+
+    output:
+        DIR_simulations_outdir = directory(
+            os.path.join(
+                "{outdir}",
+                "simulations",
+                "{runID}"
+            )
+        )
+
+    params:
+        STD_runID = "{runID}",
+        LOG_cluster_log = os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "run_methdemon.cluster.log"
+        )
+
+    threads: 1
+
+    log:
+        LOG_local_stdout = os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "run_methdemon.stdout.log"
+        )
+        LOG_local_stderr = os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "run_methdemon.stderr.log"
+        )
+
+    benchmark:
+        os.path.join(
+            "{outdir}",
+            "logs",
+            "{runID}",
+            "run_demon.benchmark.log"
+        )
+
+    shell:
+        """
+        (mkdir {output.DIR_simulations_outdir} \
+        && \
+        sleep 5 \
+        && \
+        cp \
+        {input.DAT_configfile} \
+        {output.DIR_simulations_outdir}/config.dat \
+        && \
+        {input.BIN_methdemon} \
+        {output.DIR_simulations_outdir} \
+        config.dat \
+        rm -f {output.DIR_simulations_outdir}/config.dat) \
+        1> {log.LOG_local_stdout} \
+        2> {log.LOG_local_stderr}
+        """
+
+
+rule all:
+    """
+    Target rule gathering final output of the workflow.
+    """
+    input:
+        DIR_simulations_outdir = expand(
+            os.path.join(
+                "{outdir}",
+                "simulations",
+                "{runID}"
+            ),
+            outdir = config["workflow_analysis_outdir"],
+            runID = ENCODED_CONFIG_FILES.keys(),
+        )
