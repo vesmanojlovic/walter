@@ -1,5 +1,5 @@
 # walter
-Snakemake workflow for running multiple [methdemons](https://github.com/vesmanojlovic/methdemon/tree/master) in a cluster environment (or locally, but why...?).
+Snakemake workflow for running multiple [methdemons](https://github.com/vesmanojlovic/methdemon/tree/master) in a cluster environment (or locally, but why...?). Much like methdemon being a for of [demon_model](https://github.com/robjohnnoble/demon_model), walter draws heavily from [warlock](https://github.com/AngryMaciek/warlock/tree/master).
 
 # Set-up
 To clone the repository, run
