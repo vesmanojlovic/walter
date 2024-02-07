@@ -1,5 +1,5 @@
 compilers
 graphviz
-jinja2==3.1.2
-pyyaml==6.0
-snakemake==7.18.2
+jinja2
+pyyaml
+snakemake

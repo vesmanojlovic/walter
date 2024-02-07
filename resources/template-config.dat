@@ -1,0 +1,60 @@
+capacity
+{
+    log2_deme_carrying_capacity {{methdemon_log2_deme_carrying_capacity}}
+}
+dispersal
+{
+    init_migration_rate {{methdemon_init_migration_rate}}
+    migration_rate_scales_with_K {{methdemon_migration_rate_scales_with_K}}
+}
+mutation
+{
+    mu_driver_birth {{methdemon_mu_driver_birth}}
+    mu_driver_migration {{methdemon_mu_driver_migration}}
+}
+fitness
+{
+    normal_birth_rate {{methdemon_normal_birth_rate}}
+    baseline_death_rate {{methdemon_baseline_death_rate}}
+    s_driver_birth {{methdemon_s_driver_birth}}
+    s_driver_migration {{methdemon_s_driver_migration}}
+    max_relative_birth_rate {{methdemon_max_relative_birth_rate}}
+    max_relative_migration_rate {{methdemon_max_relative_migration_rate}}
+}
+methylation
+{
+    meth_rate {{methdemon_meth_rate}}
+    demeth_rate {{methdemon_demeth_rate}}
+    fCpG_loci_per_cell {{methdemon_fCpG_loci_per_cell}}
+    manual_array {{methdemon_manual_array}}
+}
+fission_times
+{
+    t0 {{methdemon_t0}}
+    tL1 {{methdemon_tL1}}
+    tL2 {{methdemon_tL2}}
+    tL3 {{methdemon_tL3}}
+    tR1 {{methdemon_tR1}}
+    tR2 {{methdemon_tR2}}
+    tR3 {{methdemon_tR3}}
+}
+stopping_conditions
+{
+    max_time {{methdemon_max_time}}
+    max_generations {{methdemon_max_generations}}
+    max_fissions {{methdemon_max_fissions}}
+}
+initial_conditions
+{
+    init_pop {{methdemon_init_pop}}
+    fission_config {{methdemon_fission_config}}
+}
+output_indicators
+{
+    write_clones_file {{methdemon_write_clones_file}}
+    write_demes_file {{methdemon_write_demes_file}}
+}
+seed
+{
+    seed {{methdemon_seed}}
+}

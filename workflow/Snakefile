@@ -1,12 +1,11 @@
 import glob
-iport itertools
+import itertools
 from math import prod
-import os
 import traceback
 from jinja2 import Template
 
 
-config_template = os.join(
+config_template = os.path.join(
         config["workflow_repo_path"],
         "resources",
         "template-config.dat"
@@ -24,7 +23,7 @@ def CreateConfigFilesCrossProduct():
 
     meth_params = [
                     k for k in list(config.keys())
-                    if k.startswith("methdenmon_")
+                    if k.startswith("methdemon_")
         ]
     var_param = [k for k in meth_params if type(config[k]) is list]
     list_lists = [config[key] for key in var_param]
@@ -83,8 +82,8 @@ rule prepare_configfiles:
             "{outdir}",
             "logs",
             "{runID}",
-            "prepare_configfiles.stdout.log"
-        )
+            "prepare_configfiles.stdout.log",
+        ),
         LOG_local_stderr = os.path.join(
             "{outdir}",
             "logs",
@@ -160,7 +159,7 @@ rule run_methdemon:
             "logs",
             "{runID}",
             "run_methdemon.stdout.log"
-        )
+        ),
         LOG_local_stderr = os.path.join(
             "{outdir}",
             "logs",
