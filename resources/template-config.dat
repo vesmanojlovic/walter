@@ -1,6 +1,6 @@
 capacity
 {
-    log2_deme_carrying_capacity {{methdemon_log2_deme_carrying_capacity}}
+    deme_carrying_capacity {{methdemon_deme_carrying_capacity}}
 }
 dispersal
 {
@@ -54,7 +54,7 @@ output_indicators
     write_clones_file {{methdemon_write_clones_file}}
     write_demes_file {{methdemon_write_demes_file}}
 }
-seed
+rng_seed
 {
     seed {{methdemon_seed}}
 }
