@@ -3,3 +3,4 @@ graphviz
 jinja2
 pyyaml
 snakemake
+snakemake-executor-plugin-slurm

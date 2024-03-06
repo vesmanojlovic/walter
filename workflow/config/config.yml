@@ -10,7 +10,7 @@ workflow_analysis_outdir: ""
 ### METHDEMON PARAMETERS ###
 
 # capacity
-methdemon_log2_deme_carrying_capacity:
+methdemon_deme_carrying_capacity:
 # dispersal
 methdemon_init_migration_rate:
 methdemon_migration_rate_scales_with_K:
