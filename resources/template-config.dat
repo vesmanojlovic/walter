@@ -6,6 +6,8 @@ dispersal
 {
     init_migration_rate {{methdemon_init_migration_rate}}
     migration_rate_scales_with_K {{methdemon_migration_rate_scales_with_K}}
+    left_demes {{methdemon_left_demes}}
+    right_demes {{methdemon_right_demes}}
 }
 mutation
 {
@@ -28,21 +30,12 @@ methylation
     fCpG_loci_per_cell {{methdemon_fCpG_loci_per_cell}}
     manual_array {{methdemon_manual_array}}
 }
-fission_times
-{
-    t0 {{methdemon_t0}}
-    tL1 {{methdemon_tL1}}
-    tL2 {{methdemon_tL2}}
-    tL3 {{methdemon_tL3}}
-    tR1 {{methdemon_tR1}}
-    tR2 {{methdemon_tR2}}
-    tR3 {{methdemon_tR3}}
-}
 stopping_conditions
 {
     max_time {{methdemon_max_time}}
     max_generations {{methdemon_max_generations}}
     max_fissions {{methdemon_max_fissions}}
+    turnover {{methdemon_turnover}}
 }
 initial_conditions
 {

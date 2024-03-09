@@ -14,6 +14,8 @@ methdemon_deme_carrying_capacity:
 # dispersal
 methdemon_init_migration_rate:
 methdemon_migration_rate_scales_with_K:
+methdemon_left_demes:
+methdemon_right_demes:
 # mutation
 methdemon_mu_driver_birth:
 methdemon_mu_driver_migration:
@@ -29,20 +31,14 @@ methdemon_meth_rate:
 methdemon_demeth_rate:
 methdemon_fCpG_loci_per_cell:
 methdemon_manual_array:
-# fission_times
-methdemon_t0:
-methdemon_tL1:
-methdemon_tL2:
-methdemon_tL3:
-methdemon_tR1:
-methdemon_tR2:
-methdemon_tR3:
 # stopping_conditions
 methdemon_max_time:
 methdemon_max_generations:
 methdemon_max_fissions:
+methdemon_turnover:
 # initial_conditions
 methdemon_init_pop:
+methdemon_fission_config:
 # output_indicators
 methdemon_write_clones_file:
 methdemon_write_demes_file:

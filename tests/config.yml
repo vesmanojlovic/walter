@@ -2,50 +2,45 @@
 # Path to the cloned repository
 # (absolute path is required, do not use "~" -
 # some HPC clusters evaluate it differently on login & compute nodes
-workflow_repo_path: "/users/adby616/walter"
+workflow_repo_path: ""
 
 # Path to the output directory
-workflow_analysis_outdir: "/users/adby616/archive/methdemon_sensitivity"
+workflow_analysis_outdir: ""
 
 ### METHDEMON PARAMETERS ###
 
 # capacity
-methdemon_deme_carrying_capacity: [10, 100, 1000, 10000]
+methdemon_deme_carrying_capacity: [10, 100, 1000]
 # dispersal
-methdemon_init_migration_rate: ["1e-05", "1e-04", "1e-03", "1e-02"]
+methdemon_init_migration_rate: [0.00001, 0.0001, 0.001]
 methdemon_migration_rate_scales_with_K: 1
+methdemon_left_demes: 4
+methdemon_right_demes: 4
 # mutation
-methdemon_mu_driver_birth: ["1e-05", "1e-04", "1e-03"]
-methdemon_mu_driver_migration: 0.0
+methdemon_mu_driver_birth: [0.00001, 0.0001, 0.001]
+methdemon_mu_driver_migration: 0
 # fitness
 methdemon_normal_birth_rate: 0
 methdemon_baseline_death_rate: 0
-methdemon_s_driver_birth: [0, 0.1, 0.3, 0.9]
+methdemon_s_driver_birth: [0, 0.1, 0.5]
 methdemon_s_driver_migration: 0
 methdemon_max_relative_birth_rate: 10
 methdemon_max_relative_migration_rate: 10
 # methylation
-methdemon_meth_rate: [0.0001, 0.001, 0.01]
-methdemon_demeth_rate: [0.0001, 0.001, 0.01]
+methdemon_meth_rate: [0.00001, 0.0001, 0.001]
+methdemon_demeth_rate: [0.00001, 0.0001, 0.001]
 methdemon_fCpG_loci_per_cell: 1200
-methdemon_manual_array: 0
-# fission_times
-methdemon_t0: 0
-methdemon_tL1: 0
-methdemon_tL2: 0
-methdemon_tL3: 0
-methdemon_tR1: 0
-methdemon_tR2: 0
-methdemon_tR3: 0
+methdemon_manual_array: -1
 # stopping_conditions
 methdemon_max_time: 86400
-methdemon_max_generations: [500, 750, 1000]
-methdemon_max_fissions: 12
+methdemon_max_generations: 10000
+methdemon_max_fissions: 23
+methdemon_turnover: 0
 # initial_conditions
 methdemon_init_pop: 1
 methdemon_fission_config: 0
 # output_indicators
-methdemon_write_clones_file: 1
-methdemon_write_demes_file: 0
+methdemon_write_clones_file: 0
+methdemon_write_demes_file: 1
 # seed
-methdemon_seed: [69, 420, 69420, 111, 222]
+methdemon_seed: [ 69, 420, 666 ]
